@@ -1,4 +1,7 @@
 def unique_characters(unique):
+    if(len(unique) == 0):
+        print("String is empty")
+        return False
     arr = []
     for i in unique:
         if(i in arr):
@@ -10,4 +13,4 @@ def unique_characters(unique):
     return True
 
 
-unique_characters("Helo")
+unique_characters("")
