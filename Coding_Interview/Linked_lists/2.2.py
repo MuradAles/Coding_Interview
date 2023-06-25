@@ -27,6 +27,28 @@ class LinkedList:
             return
         count = 0
         current = self.head
+        while current:
+            current = current.next
+            count += 1
+        return count
+
+    def return_Kth_to_Last(self, k):
+        if not self.head:
+            return
+        count = 0
+        current = self.head
+        while current:
+            current = current.next
+            count += 1
+
+        if k > count:
+            print("K more than length of Linked List")
+            return
+        current = self.head
+        for i in range(0, count - k):
+            current = current.next
+        print(current.data)
+        return current.data
 
 
 def main():
@@ -36,6 +58,7 @@ def main():
     node1.insert_at_beginning(1)
     node1.insert_at_beginning(1)
     node1.insert_at_beginning(2)
+    node1.return_Kth_to_Last(1)
     node1.display()
 
 
