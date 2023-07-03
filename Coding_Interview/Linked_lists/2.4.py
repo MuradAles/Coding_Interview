@@ -22,15 +22,32 @@ class LinkedList:
         new_node.next = self.head
         self.head = new_node
 
+    def partion(self, partion):
+        if not self.head:
+            return
+        current = self.head
+        while current:
+            print(current.data, end="")
+            if current.data < partion:
+                current.next
+            else:
+                current.next
+            current = current.next
+        print()
+
 
 def main():
     node1 = LinkedList()
-    node1.insert_at_beginning(6)
-    node1.insert_at_beginning(5)
+    node1.insert_at_beginning(1)
+    node1.insert_at_beginning(2)
+    node1.insert_at_beginning(3)
     node1.insert_at_beginning(4)
+    node1.insert_at_beginning(5)
+    node1.insert_at_beginning(6)
     node1.insert_at_beginning(3)
     node1.insert_at_beginning(2)
     node1.insert_at_beginning(1)
+    node1.partion(2)
     node1.display()
 
 
