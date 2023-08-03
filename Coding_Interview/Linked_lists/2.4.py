@@ -23,6 +23,7 @@ class LinkedList:
         self.head = new_node
 
     def partion(self, partion):
+        # check if node exists
         if not self.head:
             return
         current = self.head
