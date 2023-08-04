@@ -22,19 +22,28 @@ class LinkedList:
         new_node.next = self.head
         self.head = new_node
 
-    def partion(self, partion):
-        # check if node exists
+    def partition(self, partition):
         if not self.head:
             return
+
+        leftHead = Node(None)
+        leftTail = leftHead
+        rightHead = Node(None)
+        rightTail = rightHead
         current = self.head
+
         while current:
-            print(current.data, end="")
-            if current.data < partion:
-                current.next
+            if current.data < partition:
+                leftTail.next = current
+                leftTail = leftTail.next
             else:
-                current.next
+                rightTail.next = current
+                rightTail = rightTail.next
             current = current.next
-        print()
+
+        leftTail.next = rightHead.next
+        rightTail.next = None
+        self.head = leftHead.next
 
 
 def main():
@@ -48,7 +57,11 @@ def main():
     node1.insert_at_beginning(3)
     node1.insert_at_beginning(2)
     node1.insert_at_beginning(1)
-    node1.partion(2)
+    node1.insert_at_beginning(1)
+    node1.insert_at_beginning(1)
+    node1.insert_at_beginning(3)
+    node1.insert_at_beginning(3)
+    node1.partition(3)
     node1.display()
 
 
