@@ -21,25 +21,25 @@ class Graph:
                     all_edges.append({vertex, nextvertex})
         return all_edges
 
-    def AddEdge(self, edge):
-        edge = set(edge)
-        (vrtx1, vrtx2) = tuple(edge)
-        if vrtx1 in self.graph_dict:
-            self.graph_dict[vrtx1].append(vrtx2)
+    def AddEdge(self, edge_1, edge_2):
+        if edge_1 in self.graph_dict:
+            self.graph_dict[edge_1].append(edge_2)
         else:
-            self.graph_dict[vrtx1] = [vrtx2]
+            self.graph_dict[edge_1] = [edge_2]
 
 
 def main():
+    # populate graph
     graph_elements = {
-        "a": ["b", "c"],
-        "b": ["a", "d"],
-        "c": ["a", "d"],
+        "a": ["b"],
+        "b": ["c", "d"],
+        "c": ["a", "f"],
         "d": ["e"],
-        "e": ["d"],
+        "e": ["c", "d"],
+        "f": ["g", "e"],
+        "g": ["e"],
     }
     g = Graph(graph_elements)
-    g.addVertex("f")
     print(g.getVertices())
     print(g.getEdges())
 
