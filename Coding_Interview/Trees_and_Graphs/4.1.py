@@ -29,21 +29,31 @@ class Graph:
         else:
             self.graph_dict[edge_1] = [edge_2]
 
-    def bfs_check(self, vertex_1, vertex_2):
-        pass
-
-    def dfs_check(self, vertex_1, vertex_2):
-        pass
-
     def check_Route_Between_Nodes(self, vertex_1, vertex_2) -> bool:
         # first we can check if vertices exists in graph
         if vertex_1 not in self.graph_dict or vertex_2 not in self.graph_dict:
             return False
         # now we can use dfs or bfs to check if path exists
         # dfs
+        dfs_list = dfs(vertex_1, self.graph_dict)
+        if vertex_2 in dfs_list:
+            return True
+        # bfs
+        return False
+
+
+def bfs(vertex, visited=None):
+    pass
+
+
+def dfs(vertex, node, visited=None):
+    if visited is None:
         visited = list()
-        dfs_check(self, vertex_1, vertex_2, visited)
-        return True
+    if vertex not in visited:
+        visited.append(vertex)
+        for neighbour in node[vertex]:
+            dfs(neighbour, node, visited)
+    return visited
 
 
 def main():
@@ -56,11 +66,12 @@ def main():
         "e": ["c", "d"],
         "f": ["g", "e"],
         "g": ["e"],
+        "z": [],
     }
     g = Graph(graph_elements)
-    print(g.getVertices())
-    print(g.getEdges())
-    print(g.check_Route_Between_Nodes("a", "e"))
+    g.getVertices()
+    g.getEdges()
+    print(g.check_Route_Between_Nodes("a", "g"))
 
 
 main()
