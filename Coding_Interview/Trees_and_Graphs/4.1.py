@@ -29,30 +29,52 @@ class Graph:
         else:
             self.graph_dict[edge_1] = [edge_2]
 
-    def check_Route_Between_Nodes(self, vertex_1, vertex_2) -> bool:
+    def check_Route_Between_Nodes_bfs(self, vertex_1, vertex_2) -> bool:
         # first we can check if vertices exists in graph
         if vertex_1 not in self.graph_dict or vertex_2 not in self.graph_dict:
             return False
-        # now we can use dfs or bfs to check if path exists
-        # dfs
-        dfs_list = dfs(vertex_1, self.graph_dict)
+        # now we can use bfs to check if path exists
+        # bfs
+        bfs_list = bfs(vertex_1, self.graph_dict)
+        if vertex_2 in bfs_list:
+            return True
+        return False
+
+    def check_Route_Between_Nodes_dfs(self, vertex_1, vertex_2) -> bool:
+        # first we can check if vertices exists in graph
+        if vertex_1 not in self.graph_dict or vertex_2 not in self.graph_dict:
+            return False
+        # now we can use dfs to check if path exists
+        dfs_list = bfs(vertex_1, self.graph_dict)
         if vertex_2 in dfs_list:
             return True
-        # bfs
         return False
 
 
-def bfs(vertex, visited=None):
-    pass
+def bfs(vertex, graph, visited=None, queue=None):
+    if visited is None:
+        visited = list()
+    if queue is None:
+        queue = list()
+    visited.append(vertex)
+    queue.append(vertex)
+
+    while queue:
+        s = queue.pop(0)
+        for neighbour in graph[s]:
+            if neighbour not in visited:
+                visited.append(neighbour)
+                queue.append(neighbour)
+    return visited
 
 
-def dfs(vertex, node, visited=None):
+def dfs(vertex, graph, visited=None):
     if visited is None:
         visited = list()
     if vertex not in visited:
         visited.append(vertex)
-        for neighbour in node[vertex]:
-            dfs(neighbour, node, visited)
+        for neighbour in graph[vertex]:
+            dfs(neighbour, graph, visited)
     return visited
 
 
@@ -66,12 +88,17 @@ def main():
         "e": ["c", "d"],
         "f": ["g", "e"],
         "g": ["e"],
-        "z": [],
+        "z": ["g"],
     }
     g = Graph(graph_elements)
     g.getVertices()
     g.getEdges()
-    print(g.check_Route_Between_Nodes("a", "g"))
+    print("bfs check")
+    print(g.check_Route_Between_Nodes_bfs("a", "g"))
+    print(g.check_Route_Between_Nodes_bfs("a", "z"))
+    print("dfs check")
+    print(g.check_Route_Between_Nodes_dfs("a", "g"))
+    print(g.check_Route_Between_Nodes_dfs("a", "z"))
 
 
 main()
