@@ -1,42 +1,58 @@
-class Node:
-    def __init__(self, data):
-        self.data = data
+class TreeNode:
+    def __init__(self, value):
+        self.value = value
         self.left = None
         self.right = None
 
-    def insert(self, data):
-        if self.data:
-            if data < self.data:
-                if self.left is None:
-                    self.left = Node(data)
-                else:
-                    self.left.insert(data)
-            elif data > self.data:
-                if self.right is None:
-                    self.right = Node(data)
-                else:
-                    self.right.insert(data)
+
+class LinkedListNode:
+    def __init__(self, value):
+        self.value = value
+        self.next = None
+
+
+def binary_tree_to_linked_lists(root):
+    if not root:
+        return []
+
+    result = []
+    current_level = [root]
+
+    while current_level:
+        next_level = []
+        head = tail = None
+
+        for node in current_level:
+            if node.left:
+                next_level.append(node.left)
+            if node.right:
+                next_level.append(node.right)
+
+            if not head:
+                head = tail = LinkedListNode(node.value)
             else:
-                self.data = data
+                tail.next = LinkedListNode(node.value)
+                tail = tail.next
+
+        result.append(head)
+        current_level = next_level
+
+    return result
 
 
-def printTree(node, level=0):
-    if node != None:
-        printTree(node.left, level + 1)
-        print(" " * 4 * level + "-> " + str(node.data))
-        printTree(node.right, level + 1)
+# Example usage
+# Constructing a binary tree
+root = TreeNode(1)
+root.left = TreeNode(2)
+root.right = TreeNode(3)
+root.left.left = TreeNode(4)
+root.left.right = TreeNode(5)
+root.right.right = TreeNode(6)
 
-
-def main():
-    root = Node(10)
-    root.insert(5)
-    root.insert(1)
-    root.insert(12)
-    root.insert(7)
-    root.insert(28)
-    root.insert(11)
-    root.insert(45)
-    printTree(root)
-
-
-main()
+linked_lists = binary_tree_to_linked_lists(root)
+for level_list in linked_lists:
+    current = level_list
+    while current:
+        print(current.value, end=" -> ")
+        current = current.next
+    print("None")
