@@ -27,6 +27,12 @@ def dfs(vertex, graph, visited=None):
 
 def main():
     graph = {"A": ["B", "C"], "B": ["D", "E"], "C": ["F"], "D": [], "E": ["F"], "F": []}
+    #       A --------> B --------> D
+    #       |           |
+    #       \           \
+    #       |           |
+    #       v           v
+    #       C--->F<-----E
     print("bfs", bfs("A", graph))
     print("dfs", dfs("A", graph))
 
