@@ -8,16 +8,39 @@ class Tree_Node:
         if self.data:
             if data < self.data:
                 if self.left is None:
-                    self.left = Node(data)
+                    self.left = Tree_Node(data)
                 else:
                     self.left.insert(data)
             elif data > self.data:
                 if self.right is None:
-                    self.right = Node(data)
+                    self.right = Tree_Node(data)
                 else:
                     self.right.insert(data)
             else:
                 self.data = data
+
+    def isSubtree(self, root, subRoot) -> bool:
+        def preorder(root):
+            if root is None:
+                return False
+            if check(root, subRoot):
+                return True
+            return preorder(root.left) or preorder(root.right)
+
+        def check(root, subRoot):
+            if not root and not subRoot:
+                return True
+            if (
+                root
+                and subRoot
+                and root.data == subRoot.data
+                and check(root.left, subRoot.left)
+                and check(root.right, subRoot.right)
+            ):
+                return True
+            return False
+
+        return preorder(root)
 
 
 def printTree(node, level=0):
@@ -28,12 +51,20 @@ def printTree(node, level=0):
 
 
 def main():
-    root = Tree_Node(10)
-    root.insert(5)
-    root.insert(1)
-    root.insert(12)
-    root.insert(7)
-    root.insert(28)
-    root.insert(11)
-    root.insert(45)
-    printTree(root)
+    root_1 = Tree_Node(10)
+    root_1.insert(5)
+    root_1.insert(1)
+    root_1.insert(12)
+    root_1.insert(7)
+    root_1.insert(28)
+    root_1.insert(11)
+    root_1.insert(45)
+    printTree(root_1)
+    root_2 = Tree_Node(5)
+    root_2.insert(1)
+    root_2.insert(7)
+    printTree(root_2)
+    print(root_1.isSubtree(root_1, root_2))
+
+
+main()
