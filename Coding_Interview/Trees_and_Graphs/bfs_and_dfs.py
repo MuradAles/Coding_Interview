@@ -5,7 +5,6 @@ def bfs(vertex, graph, visited=None, queue=None):
         queue = list()
     visited.append(vertex)
     queue.append(vertex)
-
     while queue:
         s = queue.pop(0)
         for neighbour in graph[s]:
